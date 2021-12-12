@@ -25,7 +25,7 @@ namespace ShoppingCart.API.Controllers
             return Ok(basket ?? new Entities.ShoppingCart(userName));
         }
 
-        [HttpPut]
+        [HttpPost]
         [ProducesResponseType(typeof(Entities.ShoppingCart), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Entities.ShoppingCart>> UpdateShoppingCart(Entities.ShoppingCart basket)
         {

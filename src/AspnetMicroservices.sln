@@ -13,7 +13,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{152FECF5-8898-4837-A589-3DC80DD4DACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.API", "Services\Basket\Basket.API\ShoppingCart.API.csproj", "{DB79D873-D351-4CDD-97B2-21606DB201E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.API", "Services\ShoppingCart\ShoppingCart.API\ShoppingCart.API.csproj", "{DB79D873-D351-4CDD-97B2-21606DB201E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
