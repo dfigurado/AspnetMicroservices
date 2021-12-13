@@ -4,11 +4,24 @@ services:
   catalogdb:
     image: mongo
 
+  shoppingcartdb:
+    image: redis:alpine
+
+  portainer:
+    image: portainer/portainer-ce
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
 
+  shoppingcart.api:
+    image: ${DOCKER_REGISTRY-}shoppingcartapi
+    build:
+      context: .
+      dockerfile: Services/ShoppingCart/ShoppingCart.API/Dockerfile
+
 volumes:
   mongo_data:
+  portainer_data:
