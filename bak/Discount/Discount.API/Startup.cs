@@ -1,11 +1,14 @@
-using Discount.API.Repositories;
-using Discount.API.Repositories.Interfaces;
+using Application.Discount;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Persistence;
 
 namespace Discount.API
 {
@@ -18,15 +21,27 @@ namespace Discount.API
 
         public IConfiguration Configuration { get; }
 
+
+        public void CongfigurePostgresSQLServer(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(options => {
+                options.UseNpgsql(Configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
+            });
+
+            ConfigureServices(services);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Discount.API", Version = "v1" });
             });
+
+            services.AddMediatR(typeof(Detail.Handler).Assembly);
+            services.AddAutoMapper(typeof(Detail.Handler));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
