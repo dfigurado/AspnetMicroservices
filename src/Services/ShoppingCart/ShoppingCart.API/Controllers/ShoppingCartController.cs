@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShoppingCart.API.GrpcServices;
 using ShoppingCart.API.Repositories;
 using System.Net;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ namespace ShoppingCart.API.Controllers
     public class ShoppingCartController : ControllerBase
     {
         private readonly IShoppingCartRepository _repository;
+        private readonly DiscountGrpcService _discountGrpcService;
 
-        public ShoppingCartController(IShoppingCartRepository repository)
+        public ShoppingCartController(IShoppingCartRepository repository, DiscountGrpcService discountGrpcService)
         {
             _repository = repository;
+            _discountGrpcService = discountGrpcService;
         }
 
         [HttpGet("{userName}", Name = "GetShoppingCart")]
@@ -27,8 +30,14 @@ namespace ShoppingCart.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(Entities.ShoppingCart), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Entities.ShoppingCart>> UpdateShoppingCart(Entities.ShoppingCart basket)
+        public async Task<ActionResult<Entities.ShoppingCart>> UpdateShoppingCart([FromBody] Entities.ShoppingCart basket)
         {
+            foreach (var item in basket.Items)
+            {
+                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
+                item.Price -= coupon.Amount;
+            }
+
             return Ok(await _repository.UpdateShoppingCart(basket));
         }
 
@@ -40,5 +49,7 @@ namespace ShoppingCart.API.Controllers
 
             return Ok();
         }
+
+        
     }
 }
