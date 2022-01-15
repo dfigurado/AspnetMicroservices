@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Discount.Grpc.Entities;
 using Discount.Grpc.Protos;
 using Discount.Grpc.Repositories.Interfaces;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace Discount.Grpc.Services
 {
@@ -46,7 +44,6 @@ namespace Discount.Grpc.Services
             await _repository.CreateDiscount(coupon);
             _logger.LogInformation("Discount is successfully created. ProductName : {ProductName}", coupon.ProductName);
 
-
             var couponModel = _mapper.Map<CouponModel>(coupon);
 
             return couponModel;
@@ -67,11 +64,9 @@ namespace Discount.Grpc.Services
         {
             var deleted = await _repository.DeleteDiscount(request.ProductName);
 
-            var response = new DeleteDiscountRespose
-            {
+            var response = new DeleteDiscountRespose {
                 Success = deleted
             };
-
 
             return response;
         }

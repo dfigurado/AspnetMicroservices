@@ -15,7 +15,7 @@ namespace Discount.Grpc.Extentions
 
             using (var scope = host.Services.CreateScope())
             {
-                var  services = scope.ServiceProvider;
+                var services = scope.ServiceProvider;
                 var configuration = services.GetRequiredService<IConfiguration>();
                 var logger = services.GetRequiredService<ILogger<TContext>>();
 
@@ -33,9 +33,9 @@ namespace Discount.Grpc.Extentions
                     command.CommandText = "DROP TABLE IF EXISTS Coupon";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = @"CREATE TABLE Coupon(Id SERIAL PRIMARY KEY, 
-                                                                ProductName VARCHAR(24) NOT NULL, 
-                                                                Description TEXT, 
+                    command.CommandText = @"CREATE TABLE Coupon(Id SERIAL PRIMARY KEY,
+                                                                ProductName VARCHAR(24) NOT NULL,
+                                                                Description TEXT,
                                                                 Amount INT)";
 
                     command.ExecuteNonQuery();
@@ -47,8 +47,8 @@ namespace Discount.Grpc.Extentions
                     command.ExecuteNonQuery();
 
                     logger.LogInformation("Migration successful");
-                }   
-                catch(NpgsqlException ex)
+                }
+                catch (NpgsqlException ex)
                 {
                     logger.LogError(ex, "An error occured while migrating the postgresql database");
 

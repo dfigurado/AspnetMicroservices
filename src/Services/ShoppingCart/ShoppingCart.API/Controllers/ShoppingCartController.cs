@@ -49,7 +49,5 @@ namespace ShoppingCart.API.Controllers
 
             return Ok();
         }
-
-        
     }
 }

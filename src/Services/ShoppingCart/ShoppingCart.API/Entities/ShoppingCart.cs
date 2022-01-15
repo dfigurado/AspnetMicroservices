@@ -16,10 +16,8 @@ namespace ShoppingCart.API.Entities
             UserName = userName;
         }
 
-        public decimal TotalPrice
-        {
-            get
-            {
+        public decimal TotalPrice {
+            get {
                 decimal totalPrice = 0;
                 foreach (var item in Items)
                 {

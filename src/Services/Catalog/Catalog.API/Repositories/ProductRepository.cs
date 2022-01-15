@@ -1,9 +1,8 @@
 ﻿using Catalog.API.Entities;
 using Catalog.API.Persistence;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using System;
 
 namespace Catalog.API.Repositories
 {
