@@ -19,7 +19,7 @@ namespace Ordering.Application.Contracts.Persistence.Interfaces
 
         Task<T> GetByIdAsync(int id);
 
-        Task<T> AddAsynch(T entity);
+        Task<T> AddAsync(T entity);
 
         Task UpdateAsync(T entity);
 
