@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discount.Grpc.Protos;
+using System;
 using System.Threading.Tasks;
 
 namespace ShoppingCart.API.GrpcServices
