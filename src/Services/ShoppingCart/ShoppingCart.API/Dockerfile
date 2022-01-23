@@ -7,6 +7,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/ShoppingCart/ShoppingCart.API/ShoppingCart.API.csproj", "Services/ShoppingCart/ShoppingCart.API/"]
+COPY ["Services/Discount/Discount.API/Discount.API.csproj", "Services/Discount/Discount.API/"]
+COPY ["Services/Common/Service.Common/Service.Common.csproj", "Services/Common/Service.Common/"]
 RUN dotnet restore "Services/ShoppingCart/ShoppingCart.API/ShoppingCart.API.csproj"
 COPY . .
 WORKDIR "/src/Services/ShoppingCart/ShoppingCart.API"

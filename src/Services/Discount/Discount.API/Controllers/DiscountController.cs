@@ -1,14 +1,13 @@
 ﻿using Discount.API.Entities;
 using Discount.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Service.Common;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Discount.API.Controllers
 {
-    [ApiController]
-    [Route("api/v1/[controller]")]
-    public class DiscountController : ControllerBase
+    public class DiscountController : BaseController
     {
         private readonly IDiscountRepository _repository;
 
@@ -22,7 +21,6 @@ namespace Discount.API.Controllers
         public async Task<ActionResult<Coupon>> GetDiscount(string productName)
         {
             var coupon = await _repository.GetDiscount(productName);
-
             return Ok(coupon);
         }
 
