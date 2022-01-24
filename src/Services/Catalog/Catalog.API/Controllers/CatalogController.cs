@@ -2,20 +2,23 @@
 using Catalog.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Service.Common;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
-    public class CatalogController : BaseController
+    [ApiController]
+    [Route("api/v1/[controller]")]
+    public class CatalogController : ControllerBase
     {
         private readonly IProductRepository _repository;
+        private readonly ILogger<CatalogController> _logger;
 
-        public CatalogController(IProductRepository repository)
+        public CatalogController(IProductRepository repository, ILogger<CatalogController> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -35,7 +38,7 @@ namespace Catalog.API.Controllers
 
             if (product == null)
             {
-                Logger.LogError($"Product with id: {id}, not found.");
+                _logger.LogError($"Product with id: {id}, not found.");
                 return NotFound();
             }
             return Ok(product);
